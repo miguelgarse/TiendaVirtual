@@ -15,6 +15,9 @@ namespace MaquetaTienda.Models
     public partial class Pedido
     {
         public int Id { get; set; }
-        public System.DateTime FechaPedido { get; set; }
+        public int Id_Producto { get; set; }
+        public int Cantidad { get; set; }
+        public int Cliente { get; set; }
+        public System.DateTime Fecha { get; set; }
     }
 }
