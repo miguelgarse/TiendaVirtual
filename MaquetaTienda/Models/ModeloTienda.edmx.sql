@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/19/2021 20:35:27
+-- Date Created: 02/20/2021 13:01:46
 -- Generated from EDMX file: D:\Master_practicas\05 - .NET\MaquetaTienda\MaquetaTienda\Models\ModeloTienda.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [PedidosBBDD];
+USE [aspnet-MaquetaTienda-20210219080005];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -22,12 +22,6 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Pedido]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Pedido];
-GO
-IF OBJECT_ID(N'[dbo].[Productos]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Productos];
-GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -36,16 +30,18 @@ GO
 -- Creating table 'Pedidos'
 CREATE TABLE [dbo].[Pedidos] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [FechaPedido] datetime  NOT NULL
+    [Id_Producto] int  NOT NULL,
+    [Cantidad] int  NOT NULL,
+    [Cliente] int  NOT NULL,
+    [Fecha] datetime  NOT NULL
 );
 GO
 
 -- Creating table 'Productos'
 CREATE TABLE [dbo].[Productos] (
     [Id] int IDENTITY(1,1) NOT NULL,
+    [Descripcion] nvarchar(max)  NOT NULL,
     [Nombre] nvarchar(max)  NOT NULL,
-    [Cantidad] smallint  NOT NULL,
-    [Descripcion] nvarchar(max)  NULL,
     [Precio] float  NOT NULL
 );
 GO

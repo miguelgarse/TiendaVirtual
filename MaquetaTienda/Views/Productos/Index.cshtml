@@ -6,21 +6,17 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
 <div class="container">
-    <div class="row">
-        <p>
+    <div class="row justify-content-between">
+        <div class="col-4">
             @Html.ActionLink("Create New", "Create")
-        </p>
+        </div>
+        <a href="@Url.Action("Index", "Carrito")" class="col-4">
+            <img src="~/Content/images/carro.png" width="50px" />
+        </a>
     </div>
 </div>
-
-<a href="@Url.Action("Index", "Carrito")">
-    <img src="~/Content/images/carro.png" width="50px" />
-</a>
 
     <table class="table">
         <tr>
@@ -64,7 +60,7 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
                     @Html.ActionLink("ADD TO CART", "AddCart", new { id = item.Id })
                 </td>
             </tr>
