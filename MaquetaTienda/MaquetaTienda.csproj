@@ -226,6 +226,9 @@
     <Content Include="App_Data\aspnet-MaquetaTienda-20210219080005_log.ldf">
       <DependentUpon>aspnet-MaquetaTienda-20210219080005.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\PedidosBBDD_log.ldf">
+      <DependentUpon>PedidosBBDD.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -242,7 +245,7 @@
       <LastGenOutput>ModeloTienda.cs</LastGenOutput>
       <DependentUpon>ModeloTienda.edmx</DependentUpon>
     </Content>
-    <Content Include="PedidosBBDD.mdf" />
+    <Content Include="App_Data\PedidosBBDD.mdf" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
