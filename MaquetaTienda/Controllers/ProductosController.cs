@@ -19,7 +19,11 @@ namespace MaquetaTienda.Controllers
             /// añadir el producto con ID = id al carrito
             /// que está en session
             /// 
-            cc.Add(db.Productos.Find(id));
+            Producto prod = db.Productos.Find(id);
+            prod.Cantidad -= 1;
+            db.SaveChanges();
+
+            cc.Add(prod);
 
             return RedirectToAction("Index");
         }

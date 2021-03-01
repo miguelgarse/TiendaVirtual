@@ -1,23 +1,30 @@
 ﻿@model IEnumerable<MaquetaTienda.Models.Producto>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de productos";
 }
 
-<h2>Index</h2>
+<h2>Lista de productos</h2>
 
 
-<div class="container">
-    <div class="row justify-content-between">
-        [Authorize(Roles = "admin")]
-        <div class="col-4">
-            @Html.ActionLink("Create New", "Create")
+    <div class="container">
+        <div class="row" style="margin-bottom: 10px;">
+
+            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+            {
+                <div style="position: absolute; z-index: 999; margin-top: 15px;">
+                    @Html.ActionLink("Create New", "Create")
+                </div>
+            }
+
+            <div style="margin-left: 90%;">
+                <a href="@Url.Action("Index", "Carrito")" class="col-4">
+                    <img src="~/Content/images/carro.png" width="50px" />
+                </a>
+            </div>
+            
         </div>
-        <a href="@Url.Action("Index", "Carrito")" class="col-4">
-            <img src="~/Content/images/carro.png" width="50px" />
-        </a>
     </div>
-</div>
 
     <table class="table">
         <tr>
@@ -39,17 +46,24 @@
 
         @foreach (var item in Model)
         {
-            <tr>
+            string style = item.Cantidad == 0 ?
+                "background-color: #fe000054;"
+                :
+                item.Cantidad < 5 ? "background-color: #fefd0054;" : null;
+
+            <tr style="@style">
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Cantidad)
-                    @if (item.Cantidad < 5)
+                    @if (item.Cantidad == 0)
                     {
-                        <p>
-                            Esta a punto de agotarse
-                        </p>
+                        <img src="~/Content/images/info.png" width="20px" title="Producto agotado" style="margin-left: 5px;" />
+                    }
+                    else if(item.Cantidad < 5)
+                    {
+                        <img src="~/Content/images/info.png" width="20px" title="Esta a punto de agotarse" style="margin-left: 5px;" />
                     }
                 </td>
                 <td>
@@ -59,10 +73,18 @@
                     @Html.DisplayFor(modelItem => item.Precio)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) | 
-                    @Html.ActionLink("ADD TO CART", "AddCart", new { id = item.Id })
+                    @if (item.Cantidad == 0)
+                    {
+
+
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @Html.Raw(" | ")
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) @Html.Raw(" | ")
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }) @Html.Raw(" | ")
+                    }
+
+                    <a href="@Url.Action("AddCart", "Productos", new { id = item.Id })" title="Add to cart">
+                        <img src="~/Content/images/add-cart.png" width="30px" />
+                    </a>
                 </td>
             </tr>
         }
