@@ -73,7 +73,7 @@
                     @Html.DisplayFor(modelItem => item.Precio)
                 </td>
                 <td>
-                    @if (item.Cantidad == 0)
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
                     {
 
 
@@ -82,10 +82,13 @@
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id }) @Html.Raw(" | ")
                     }
 
-                    <a href="@Url.Action("AddCart", "Productos", new { id = item.Id })" title="Add to cart">
-                        <img src="~/Content/images/add-cart.png" width="30px" />
-                    </a>
-                </td>
+                    @if (item.Cantidad > 0)
+                    {
+                        <a href="@Url.Action("AddCart", "Productos", new { id = item.Id })" title="Add to cart">
+                            <img src="~/Content/images/add-cart.png" width="30px" />
+                        </a>
+                    }
+                    </td>
             </tr>
         }
 
