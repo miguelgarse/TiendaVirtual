@@ -47,9 +47,13 @@ namespace MaquetaTienda.Controllers
         }
 
         // GET: Productos/Create
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public ActionResult Create()
         {
+            if (!User.IsInRole("admin"))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             return View();
         }
 

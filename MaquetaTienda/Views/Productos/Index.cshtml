@@ -9,10 +9,17 @@
 
 <div class="container">
     <div class="row justify-content-between">
-        [Authorize(Roles = "admin")]
-        <div class="col-4">
-            @Html.ActionLink("Create New", "Create")
-        </div>
+        <h2> Tienda .NET </h2>
+        @if (User.IsInRole("admin"))
+        {
+            <div class="container">
+                <div class="row">
+                    <p>
+                        @Html.ActionLink("Create New", "Create")
+                    </p>
+                </div>
+            </div>
+        }
         <a href="@Url.Action("Index", "Carrito")" class="col-4">
             <img src="~/Content/images/carro.png" width="50px" />
         </a>
