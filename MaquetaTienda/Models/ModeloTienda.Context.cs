@@ -27,5 +27,6 @@ namespace MaquetaTienda.Models
     
         public virtual DbSet<Pedido> Pedidos { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
+        public virtual DbSet<Factura> Facturas { get; set; }
     }
 }
