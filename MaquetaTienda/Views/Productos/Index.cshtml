@@ -12,17 +12,17 @@
 
             @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
             {
-                <div style="position: absolute; z-index: 999; margin-top: 15px;">
-                    @Html.ActionLink("Create New", "Create")
-                </div>
+                <a href="@Url.Action("Create", "Productos")" class="btn btn-primary col-4" style="position: absolute; z-index: 999; margin-top: 15px;">
+                    Crear Nuevo Producto
+                </a>
             }
 
             <div style="margin-left: 90%;">
-                <a href="@Url.Action("Index", "Carrito")" class="col-4">
-                    <img src="~/Content/images/carro.png" width="50px" />
+                <a href="@Url.Action("Index", "Carrito")" class="btn col-4" title="Ir al carrito de la compra">
+                    <img src="~/Content/images/carro.png" width="35px" />
                 </a>
             </div>
-            
+
         </div>
     </div>
 
@@ -75,20 +75,27 @@
                 <td>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
                     {
-
-
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @Html.Raw(" | ")
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) @Html.Raw(" | ")
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }) @Html.Raw(" | ")
+                        <a href="@Url.Action("Edit", "Productos", new { id = item.Id })" title="Editar Producto">
+                            <img src="~/Content/images/edit.png" height="25px" />
+                        </a>
+                        <span style="margin-left: 5px; margin-right:5px;">|</span>
+                        <a href="@Url.Action("Details", "Productos", new { id = item.Id })" title="Visualizar Producto">
+                            <img src="~/Content/images/details.png" height="25px" />
+                        </a>
+                        <span style="margin-left: 5px; margin-right:5px;">|</span>
+                        <a href="@Url.Action("Delete", "Productos", new { id = item.Id })" title="Borrar Producto">
+                            <img src="~/Content/images/trash.png" height="25px" />
+                        </a>
                     }
 
                     @if (item.Cantidad > 0)
                     {
-                        <a href="@Url.Action("AddCart", "Productos", new { id = item.Id })" title="Add to cart">
-                            <img src="~/Content/images/add-cart.png" width="30px" />
+                        <span style="margin-left: 5px; margin-right:5px;">|</span>
+                        <a href="@Url.Action("AddCart", "Productos", new { id = item.Id })" title="Añadir al carrito">
+                            <img src="~/Content/images/add-cart.png" height="25px" />
                         </a>
                     }
-                    </td>
+                </td>
             </tr>
         }
 
