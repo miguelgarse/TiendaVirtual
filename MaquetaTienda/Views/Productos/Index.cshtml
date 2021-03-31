@@ -41,6 +41,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Precio)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Img)
+            </th>
             <th></th>
         </tr>
 
@@ -51,45 +54,48 @@
                 :
                 item.Cantidad < 5 ? "background-color: #fefd0054;" : null;
 
-            <tr style="@style">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cantidad)
-                    @if (item.Cantidad == 0)
-                    {
-                        <img src="~/Content/images/info.png" width="20px" title="Producto agotado" style="margin-left: 5px;" />
-                    }
-                    else if(item.Cantidad < 5)
-                    {
-                        <img src="~/Content/images/info.png" width="20px" title="Esta a punto de agotarse" style="margin-left: 5px;" />
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Precio)
-                </td>
-                <td>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
-                    {
+    <tr style="@style">
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cantidad)
+            @if (item.Cantidad == 0)
+            {
+                <img src="~/Content/images/info.png" width="20px" title="Producto agotado" style="margin-left: 5px;" />
+            }
+            else if (item.Cantidad < 5)
+            {
+                <img src="~/Content/images/info.png" width="20px" title="Esta a punto de agotarse" style="margin-left: 5px;" />
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+        <td>
+            <img src=@Html.DisplayFor(modelItem => item.Img) width="50px" style="margin-left: 5px;" />
+        </td>
+        <td>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+            {
 
 
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @Html.Raw(" | ")
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) @Html.Raw(" | ")
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }) @Html.Raw(" | ")
-                    }
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @Html.Raw(" | ")
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) @Html.Raw(" | ")
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) @Html.Raw(" | ")
+            }
 
-                    @if (item.Cantidad > 0)
-                    {
-                        <a href="@Url.Action("AddCart", "Productos", new { id = item.Id })" title="Add to cart">
-                            <img src="~/Content/images/add-cart.png" width="30px" />
-                        </a>
-                    }
-                    </td>
-            </tr>
+            @if (item.Cantidad > 0)
+            {
+                <a href="@Url.Action("AddCart", "Productos", new { id = item.Id })" title="Add to cart">
+                    <img src="~/Content/images/add-cart.png" width="30px" />
+                </a>
+            }
+        </td>
+    </tr>
         }
 
     </table>
