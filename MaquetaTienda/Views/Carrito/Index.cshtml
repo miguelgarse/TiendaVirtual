@@ -1,5 +1,6 @@
-﻿@model IEnumerable<MaquetaTienda.Models.Producto>
+@model IEnumerable<MaquetaTienda.Models.PedidoDto>
 @*@model IEnumerable<MaquetaTienda.Models.Factura>*@
+
 
     @{
         ViewBag.Title = "Carro de la compra";
@@ -7,45 +8,48 @@
 
     <h2>Carro de la compra</h2>
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cantidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Precio)
-            </th>
-            <th></th>
-        </tr>
+<div class="row" style="margin-bottom: 10px;">
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cantidad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Precio)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
-    </table>
+    <div style="margin-left: 90%;">
+        <a href="@Url.Action("SavePedido", "Carrito")" class="btn btn-primary col-4" title="Guardar Pedido en Base de Datos">
+            Completar Pedido
+        </a>
+    </div>
+
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Producto.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Producto.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                <a href="@Url.Action("Delete", "Carrito", new { id = item.Id })" title="Delete from pedidos">
+                    <img src="~/Content/images/trash.png" width="20px" />
+                </a>
+            </td>
+        </tr>
+    }
 
     @* <p> @Html.DisplayNameFor(model => model.Total) </p>
