@@ -8,6 +8,7 @@
   <EntityContainer Name="ModeloTiendaStoreContainer">
     <EntitySet Name="Pedidos" EntityType="ModeloTienda.Store.Pedidos" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Productos" EntityType="ModeloTienda.Store.Productos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Facturas" EntityType="ModeloTienda.Store.Facturas" store:Type="Tables" Schema="dbo" />
   </EntityContainer>
   <EntityType Name="Pedidos">
     <Key>
@@ -30,6 +31,13 @@
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="Img" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="Facturas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Total" Type="int" Nullable="false" />
+  </EntityType>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -37,6 +45,7 @@
         <EntityContainer Name="ModeloTiendaContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Pedidos" EntityType="ModeloTienda.Pedido" />
           <EntitySet Name="Productos" EntityType="ModeloTienda.Producto" />
+          <EntitySet Name="Facturas" EntityType="ModeloTienda.Factura" />
         </EntityContainer>
         <EntityType Name="Pedido">
           <Key>
@@ -58,6 +67,13 @@
           <Property Name="Precio" Type="Double" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
           <Property Name="Img" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Total" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -85,6 +101,14 @@
           <ScalarProperty Name="Precio" ColumnName="Precio" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
           <ScalarProperty Name="Img" ColumnName="Img" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Facturas">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloTienda.Factura)">
+        <MappingFragment StoreEntitySet="Facturas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

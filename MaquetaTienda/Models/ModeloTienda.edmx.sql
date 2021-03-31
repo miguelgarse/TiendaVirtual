@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/31/2021 14:02:33
+-- Date Created: 03/31/2021 16:00:14
 -- Generated from EDMX file: C:\Users\Irene\Documents\NET\MaquetaTienda\Models\ModeloTienda.edmx
 -- --------------------------------------------------
 
@@ -54,6 +54,13 @@ CREATE TABLE [dbo].[Productos] (
 );
 GO
 
+-- Creating table 'Facturas'
+CREATE TABLE [dbo].[Facturas] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Total] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -67,6 +74,12 @@ GO
 -- Creating primary key on [Id] in table 'Productos'
 ALTER TABLE [dbo].[Productos]
 ADD CONSTRAINT [PK_Productos]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Facturas'
+ALTER TABLE [dbo].[Facturas]
+ADD CONSTRAINT [PK_Facturas]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
