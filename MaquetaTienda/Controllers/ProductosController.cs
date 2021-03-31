@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MaquetaTienda.Models;
+using Microsoft.AspNet.Identity;
+
 
 namespace MaquetaTienda.Controllers
 {
@@ -18,12 +20,34 @@ namespace MaquetaTienda.Controllers
         {
             /// añadir el producto con ID = id al carrito
             /// que está en session
-            /// 
             Producto prod = db.Productos.Find(id);
-            prod.Cantidad -= 1;
-            db.SaveChanges();
-
+            
+            // Lo guardamos en el Modelo CarritoCompra
             cc.Add(prod);
+
+            // Guardamos los Productos en los Pedidos, pero sin descontar los articulos
+            String currentUser = User.Identity.GetUserId();
+            // Buscamos por Cliente y por Id_Producto
+            List<Pedido> pedidoList = db.Pedidos.AsEnumerable()
+                .Where(pedidoAux => pedidoAux.Cliente.Equals(currentUser)
+                                    && pedidoAux.Id_Producto == prod.Id).ToList();
+
+            Pedido pedido = new Pedido();
+            if (pedidoList.Count > 0)
+            {
+                pedido = pedidoList[0];
+                pedido.Cantidad = pedido.Cantidad + 1;
+            }
+            else
+            {
+                pedido.Id_Producto = prod.Id;
+                pedido.Cliente = User.Identity.GetUserId();
+                pedido.Cantidad = 1;
+                pedido.Fecha = DateTime.Now;
+            }
+
+            db.Pedidos.Add(pedido);
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
