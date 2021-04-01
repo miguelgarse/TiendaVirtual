@@ -17,6 +17,10 @@ namespace MaquetaTienda.Controllers
 
         public ActionResult AddCart (int  id, CarritoCompra cc)
         {
+            if (User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             /// añadir el producto con ID = id al carrito
             /// que está en session
             Producto prod = db.Productos.Find(id);
