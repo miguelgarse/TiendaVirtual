@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using MaquetaTienda.Models;
 using Microsoft.AspNet.Identity;
@@ -118,7 +117,7 @@ namespace MaquetaTienda.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,Cantidad,Descripcion,Precio")] Producto producto)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Cantidad,Descripcion,Precio,Img")] Producto producto)
         {
             if (ModelState.IsValid)
             {

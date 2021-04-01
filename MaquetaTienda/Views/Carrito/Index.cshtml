@@ -1,12 +1,10 @@
 @model IEnumerable<MaquetaTienda.Models.PedidoDto>
-@*@model IEnumerable<MaquetaTienda.Models.Factura>*@
 
+@{
+    ViewBag.Title = "Carro de la compra";
+}
 
-    @{
-        ViewBag.Title = "Carro de la compra";
-    }
-
-    <h2>Carro de la compra</h2>
+<h2>Carro de la compra</h2>
 
 <div class="row" style="margin-bottom: 10px;">
 
@@ -27,7 +25,13 @@
             @Html.DisplayNameFor(model => model.Producto.Descripcion)
         </th>
         <th>
+            Precio por unidad
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th>
+            Precio
         </th>
         <th></th>
     </tr>
@@ -42,7 +46,13 @@
                 @Html.DisplayFor(modelItem => item.Producto.Descripcion)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Producto.Precio) €
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @(item.Producto.Precio * item.Cantidad) €
             </td>
             <td>
                 <a href="@Url.Action("Delete", "Carrito", new { id = item.Id })" title="Delete from pedidos">
@@ -51,5 +61,18 @@
             </td>
         </tr>
     }
+</table>
 
-    @* <p> @Html.DisplayNameFor(model => model.Total) </p>
+<h3 style="margin-left: 80%;">
+    Total:
+    @{
+        double total = 0;
+
+        foreach (var item in Model)
+        {
+            total = total + (item.Producto.Precio * item.Cantidad);
+        }
+
+        <span>@(total) €</span>
+    }
+</h3>

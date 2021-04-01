@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Net;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -55,23 +54,26 @@ namespace MaquetaTienda.Controllers
 
         public ActionResult SavePedido(CarritoCompra cc)
         {
-            // Guardamos los Productos en los Pedidos, pero sin descontar los articulos
-            String currentUser = User.Identity.GetUserId();
-            // Buscamos por Cliente y por Id_Producto
-            List<Pedido> pedidoList = db.Pedidos.AsEnumerable()
-                .Where(pedidoAux => pedidoAux.Cliente.Equals(currentUser)).ToList();
-
-            // Hacer un mapeo entre PedidoDto y Pedido
-            foreach (Pedido pedido in pedidoList)
+            if (cc.Count > 0)
             {
-                // Buscamos el producto y borramos su cantidad
-                Producto prod = db.Productos.Find(pedido.Id_Producto);
-                prod.Cantidad -= pedido.Cantidad;
-                db.SaveChanges();
+                // Guardamos los Productos en los Pedidos, pero sin descontar los articulos
+                String currentUser = User.Identity.GetUserId();
+                // Buscamos por Cliente y por Id_Producto
+                List<Pedido> pedidoList = db.Pedidos.AsEnumerable()
+                    .Where(pedidoAux => pedidoAux.Cliente.Equals(currentUser)).ToList();
+
+                // Hacer un mapeo entre PedidoDto y Pedido
+                foreach (Pedido pedido in pedidoList)
+                {
+                    // Buscamos el producto y borramos su cantidad
+                    Producto prod = db.Productos.Find(pedido.Id_Producto);
+                    prod.Cantidad -= pedido.Cantidad;
+                    db.SaveChanges();
+                }
+
+                cc.Clear();
             }
-
-            cc.Clear();
-
+           
             // Persistir la lista de Pedidos en base de datos
             return RedirectToAction("Index");
         }
