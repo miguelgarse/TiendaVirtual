@@ -80,16 +80,9 @@ namespace MaquetaTienda.Controllers
 
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Producto producto = db.Productos.Find(id);
-            if (producto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(producto);
+           // Implementar borrado
+
+            return View("Index");
         }
     }
 }
